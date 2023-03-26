@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: monospace;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(0deg, rgb(0, 0, 0), rgb(22, 55, 65));
+        }
+
+        .calculator {
+            border: 1px solid rgb(85, 109, 104);
+            padding: 15px;
+            border-radius: 15px;
+            background-color: transparent;
+            box-shadow: 0 3px 20px rgba(192, 248, 255, 0.555);
+        }
+
+        input {
+            width: 350px;
+            border: none;
+            padding: 24px;
+            background: transparent;
+            box-shadow: 0 3px 20px rgba(83, 83, 83, 0.1);
+            font-size: 40px;
+            text-align: right;
+            cursor: pointer;
+            color: white;
+        }
+
+        input::placeholder {
+            color: white;
+        }
+
+        button {
+            border: none;
+            width: 60px;
+            height: 60px;
+            margin: 10px;
+            border-radius: 5px;
+            color: white;
+            background: transparent;
+            font-size: 20px;
+            box-shadow: 0 0px 10px rgba(75, 121, 129, 0.856);
+            cursor: pointer;
+            align-items: center;
+        }
+
+        .equal {
+            background-color: rgb(255, 177, 87);
+        }
+
+        .sign {
+            color: rgb(110, 233, 110);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="calculator">
+        <input type="text" placeholder="0" id="inputBox">
+        <div>
+            <button class="sign">AC</button>
+            <button class="sign">DEL</button>
+            <button class="sign">%</button>
+            <button class="sign">/</button>
+        </div>
+        <div>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button class="sign">*</button>
+        </div>
+        <div>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button class="sign">-</button>
+        </div>
+        <div>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button class="sign">+</button>
+        </div>
+        <div>
+            <button>00</button>
+            <button>0</button>
+            <button>.</button>
+            <button class="equal">=</button>
+        </div>
+    </div>
+
+    <script>
+        let input = document.getElementById('inputBox');
+        let buttons = document.querySelectorAll('button');
+
+        let string = "";
+        let arr = Array.from(buttons);
+        arr.forEach(button => {
+            button.addEventListener('click', (e) => {
+                if (e.target.innerHTML == '=') {
+                    string = eval(string);
+                    input.value = string;
+                }
+
+                else if (e.target.innerHTML == 'AC') {
+                    string = "";
+                    input.value = string;
+                }
+                else if (e.target.innerHTML == 'DEL') {
+                    string = string.substring(0, string.length - 1);
+                    input.value = string;
+
+                }
+                else {
+                    string += e.target.innerHTML;
+                    input.value = string;
+                }
+
+
+            })
+        })
+    </script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+
+</body></html>
